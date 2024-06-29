@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZerixIsland</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script> <!-- Bibliothèque QR Code -->
+
     <style>
         /* Styles CSS */
         body {
@@ -105,22 +107,27 @@
             padding-top: 20px;
             z-index: 999;
         }
-        .taskbar i {
+        .taskbar a {
             margin: 20px 0;
             cursor: pointer;
+            color: white;
+            text-decoration: none;
+        }
+        .taskbar a:hover {
+            color: #ccc;
         }
 
         /* Styles for QR Code */
         .qr-code {
             position: fixed;
-            top: 20px;
-            right: 20px;
+            bottom: 20px; /* Adjust to place QR code at the bottom */
+            right: 20px; /* Adjust to place QR code at the right */
             z-index: 1000;
         }
 
         .qr-code img {
-            width: 80px;
-            height: 80px;
+            width: 50px;
+            height: 50px;
         }
 
         /* Styles for Comments Section */
@@ -247,16 +254,96 @@
 
     <!-- Barre de tâches -->
     <div class="taskbar">
-        <i class="fas fa-home" title="Accueil"></i>
-        <i class="fas fa-gamepad" title="Jeux"></i>
-        <i class="fas fa-tshirt" title="Habille"></i>
-        <i class="fas fa-music" title="Musique"></i>
-        <i class="fas fa-lightbulb" title="Astuce"></i>
+        <a href="#jeux"><i class="fas fa-home" title="Accueil"></i></a>
+        <a href="#jeux"><i class="fas fa-gamepad" title="Jeux"></i></a>
+        <a href="#habille"><i class="fas fa-tshirt" title="Habille"></i></a>
+        <a href="#musique"><i class="fas fa-music" title="Musique"></i></a>
+        <a href="#astuce"><i class="fas fa-lightbulb" title="Astuce"></i></a>
     </div>
 
     <!-- QR Code pour accéder à la page -->
     <div class="qr-code">
-        <img src="chemin/vers/votre/qrcode.png" alt="QR Code">
+        <img src="https://www.example.com/qr-code.png" alt="QR Code">
     </div>
 
-   
+    <!-- Script JavaScript -->
+    <script>
+        // Stockage des réponses du bot
+        var responses = {
+            "salut": "Salut!",
+            "comment puis-je vous aider": "Je suis ZerixBot, comment puis-je vous aider?",
+            "quel est votre nom": "Je suis ZerixBot, enchanté de vous rencontrer!",
+            "au revoir": "À bientôt!",
+            "quel est votre service": "Je suis ici pour vous aider, que puis-je faire pour vous aujourd'hui?",
+            "merci": "De rien!",
+            "default": "Je suis un bot, je ne sais pas répondre pour le moment."
+        };
+
+        // Fonction pour afficher ou cacher le chat
+        function toggleChat() {
+            var chatContainer = document.getElementById('chat-container');
+            chatContainer.style.display = (chatContainer.style.display === 'none' || chatContainer.style.display === '') ? 'block' : 'none';
+        }
+
+        // Fonction pour envoyer un message dans le chat
+        function sendMessage() {
+            var userInput = document.getElementById('user-input');
+            var message = userInput.value.trim().toLowerCase();
+            if (message !== '') {
+                var chatMessages = document.getElementById('chat-messages');
+                var userMessage = document.createElement('div');
+                userMessage.classList.add('message', 'user-message');
+                userMessage.textContent = message;
+                chatMessages.appendChild(userMessage);
+                userInput.value = '';
+
+                // Réponses du bot
+                setTimeout(function() {
+                    var botMessage = document.createElement('div');
+                    botMessage.classList.add('message', 'bot-message');
+                    
+                    // Vérification des réponses stockées
+                    if (responses.hasOwnProperty(message)) {
+                        botMessage.textContent = responses[message];
+                    } else {
+                        botMessage.textContent = responses["default"];
+                    }
+                    
+                    chatMessages.appendChild(botMessage);
+                    chatMessages.scrollTop = chatMessages.scrollHeight; // Faire défiler jusqu'au dernier message
+                }, 1000);
+            }
+        }
+
+        // Fonction pour cloner le repo (exemple)
+        function cloneRepo() {
+            alert("Fonctionnalité de clonage du repo à implémenter.");
+        }
+
+        // Soumettre le formulaire de commentaire (exemple)
+        document.getElementById('comment-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Empêcher le rechargement de la page
+            var commentInput = document.getElementById('comment-input');
+            var comment = commentInput.value.trim();
+            if (comment !== '') {
+                var commentsList = document.querySelector('.comments-list');
+                var newComment = document.createElement('div');
+                newComment.classList.add('message');
+                newComment.textContent = comment;
+                commentsList.appendChild(newComment);
+                commentInput.value = '';
+            }
+        });
+
+        // Générer et afficher le QR code
+        var qrCode = new QRCode(document.createElement('div'), {
+            text: "https://www.example.com", // Mettez ici l'URL ou le texte que vous souhaitez convertir en QR code
+            width: 50,
+            height: 50
+        });
+
+        var qrCodeContainer = document.querySelector('.qr-code');
+        qrCodeContainer.appendChild(qrCode._el.firstChild);
+    </script>
+</body>
+</html>
