@@ -24,7 +24,7 @@
         .main-content {
             padding: 20px;
             width: calc(100% - 70px); /* Adjust width to accommodate taskbar */
-            margin-bottom: 100px; /* Add space at the bottom to ensure scroll */
+            margin-bottom: 150px; /* Add space at the bottom to ensure scroll */
         }
         .category {
             background-color: #fff;
@@ -32,7 +32,7 @@
             border-radius: 8px;
             padding: 20px;
             margin: 20px 0;
-            height: 500px; /* Added height to ensure scrolling */
+            min-height: 500px; /* Added min-height to ensure scrolling */
         }
         .chat-icon {
             position: fixed;
@@ -109,6 +109,68 @@
             margin: 20px 0;
             cursor: pointer;
         }
+
+        /* Styles for QR Code */
+        .qr-code {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .qr-code img {
+            width: 80px;
+            height: 80px;
+        }
+
+        /* Styles for Comments Section */
+        .comments-section {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        .comments-section h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .comments-list {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        #comment-input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #comment-input:focus {
+            outline: none;
+            border-color: #333;
+        }
+
+        #comment-form button {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        #comment-form button:hover {
+            background-color: #555;
+        }
     </style>
 </head>
 <body>
@@ -156,6 +218,18 @@
 
         <!-- Bouton pour cloner le repo -->
         <button onclick="cloneRepo()" class="send-btn">Cloner le Repo</button>
+
+        <!-- Section des commentaires -->
+        <div class="comments-section">
+            <h2>Commentaires</h2>
+            <div class="comments-list">
+                <!-- Ici s'afficheront les commentaires -->
+            </div>
+            <form id="comment-form">
+                <textarea id="comment-input" placeholder="Ajouter un commentaire..." required></textarea>
+                <button type="submit">Envoyer</button>
+            </form>
+        </div>
     </div>
 
     <!-- Icône du chat -->
@@ -180,65 +254,9 @@
         <i class="fas fa-lightbulb" title="Astuce"></i>
     </div>
 
-    <!-- Script JavaScript -->
-    <script>
-        // Fonction pour afficher ou masquer le chat
-        function toggleChat() {
-            const chatContainer = document.getElementById('chat-container');
-            if (chatContainer.style.display === 'block') {
-                chatContainer.style.display = 'none';
-            } else {
-                chatContainer.style.display = 'block';
-            }
-        }
+    <!-- QR Code pour accéder à la page -->
+    <div class="qr-code">
+        <img src="chemin/vers/votre/qrcode.png" alt="QR Code">
+    </div>
 
-        // Fonction pour envoyer un message
-        function sendMessage() {
-            const userInput = document.getElementById('user-input').value.trim();
-            if (userInput !== '') {
-                addUserMessage(userInput);
-                // Exemple de réponse du bot
-                addBotMessage('Réponse du Bot : Bonjour ! Comment puis-je vous aider ?');
-                document.getElementById('user-input').value = '';
-            }
-        }
-
-        // Fonction pour ajouter un message de l'utilisateur
-        function addUserMessage(message) {
-            const chatMessages = document.getElementById('chat-messages');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = 'message user-message';
-            messageDiv.textContent = message;
-            chatMessages.appendChild(messageDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        // Fonction pour ajouter un message du bot
-        function addBotMessage(message) {
-            const chatMessages = document.getElementById('chat-messages');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = 'message bot-message';
-            messageDiv.textContent = message;
-            chatMessages.appendChild(messageDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        // Fonction pour cloner le repo
-        function cloneRepo() {
-            fetch('/clone-repo', {
-                method: 'POST'
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Le dépôt a été cloné avec succès !');
-                } else {
-                    alert('Erreur lors du clonage du dépôt.');
-                }
-            })
-            .catch(error => {
-                console.error('Erreur:', error);
-                alert('Erreur lors du clonage du dépôt.');
-            });
-        }
    
