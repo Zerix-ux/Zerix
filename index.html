@@ -268,17 +268,6 @@
 
     <!-- Script JavaScript -->
     <script>
-        // Stockage des réponses du bot
-        var responses = {
-            "salut": "Salut!",
-            "comment puis-je vous aider": "Je suis ZerixBot, comment puis-je vous aider?",
-            "quel est votre nom": "Je suis ZerixBot, enchanté de vous rencontrer!",
-            "au revoir": "À bientôt!",
-            "quel est votre service": "Je suis ici pour vous aider, que puis-je faire pour vous aujourd'hui?",
-            "merci": "De rien!",
-            "default": "Je suis un bot, je ne sais pas répondre pour le moment."
-        };
-
         // Fonction pour afficher ou cacher le chat
         function toggleChat() {
             var chatContainer = document.getElementById('chat-container');
@@ -288,7 +277,7 @@
         // Fonction pour envoyer un message dans le chat
         function sendMessage() {
             var userInput = document.getElementById('user-input');
-            var message = userInput.value.trim().toLowerCase();
+            var message = userInput.value.trim();
             if (message !== '') {
                 var chatMessages = document.getElementById('chat-messages');
                 var userMessage = document.createElement('div');
@@ -302,11 +291,13 @@
                     var botMessage = document.createElement('div');
                     botMessage.classList.add('message', 'bot-message');
                     
-                    // Vérification des réponses stockées
-                    if (responses.hasOwnProperty(message)) {
-                        botMessage.textContent = responses[message];
+                    // Répondre en fonction du message de l'utilisateur
+                    if (message.toLowerCase().includes('salut')) {
+                        botMessage.textContent = "Salut!";
+                    } else if (message.toLowerCase().includes('comment puis-je vous aider')) {
+                        botMessage.textContent = "Je suis ZerixBot, comment puis-je vous aider?";
                     } else {
-                        botMessage.textContent = responses["default"];
+                        botMessage.textContent = "Je suis un bot, je ne sais pas répondre pour le moment.";
                     }
                     
                     chatMessages.appendChild(botMessage);
