@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZerixIsland</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script> <!-- Bibliothèque QR Code -->
+
     <style>
         /* Styles CSS */
         body {
@@ -177,45 +178,13 @@
         #comment-form button:hover {
             background-color: #555;
         }
-
-        /* Styles for Media Upload */
-        .upload-input {
-            display: none;
-        }
-
-        .upload-label {
-            display: block;
-            margin-top: 10px;
-            color: #333;
-            background-color: #f0f0f0;
-            padding: 10px;
-            border: 1px solid #ccc;
-            cursor: pointer;
-            text-align: center;
-            border-radius: 5px;
-        }
-
-        .media-container {
-            margin-top: 10px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .uploaded-media {
-            max-width: 200px;
-            max-height: 200px;
-            object-fit: cover;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
     </style>
 </head>
 <body>
     <!-- Entête de la page -->
     <div class="header">
         <h1>ZerixIsland</h1>
-        <p>Vous pouvez réaliser ce que vous le voulez.</p>
+        <p>Bonjour sur ce site vous pouvez acheter de tout.</p>
     </div>
 
     <!-- Contenu principal de la page -->
@@ -223,39 +192,26 @@
         <div class="category" id="jeux">
             <h2><i class="fas fa-gamepad"></i> Jeux</h2>
             <p>Contenu de la catégorie Jeux</p>
-            <!-- Ajout pour télécharger une image/vidéo -->
-            <input type="file" id="jeux-upload" class="upload-input" accept="image/*, video/*" onchange="handleFileUpload(this.files, 'jeux')">
-            <label for="jeux-upload" class="upload-label"><i class="fas fa-cloud-upload-alt"></i> Télécharger une image ou une vidéo</label>
-            <div id="jeux-media" class="media-container"></div>
+            <!-- Ajouter une image et un lien pour télécharger ou exécuter le jeu Pygame -->
+            <div style="text-align: center;">
+                <img src="path_to_your_image/jeu.png" alt="Aventures Interstellaires" style="width: 300px; height: 200px;">
+                <p><a href="path_to_your_download/jeu_pygame.zip" download>Télécharger le jeu</a></p>
+            </div>
         </div>
 
         <div class="category" id="habille">
             <h2><i class="fas fa-tshirt"></i> Habille</h2>
             <p>Contenu de la catégorie Habille</p>
-            <!-- Ajout pour télécharger une image/vidéo -->
-            <input type="file" id="habille-upload" class="upload-input" accept="image/*, video/*" onchange="handleFileUpload(this.files, 'habille')">
-            <label for="habille-upload" class="upload-label"><i class="fas fa-cloud-upload-alt"></i> Télécharger une image ou une vidéo</label>
-            <div id="habille-media" class="media-container"></div>
         </div>
 
         <div class="category" id="musique">
             <h2><i class="fas fa-music"></i> Musique</h2>
-            <div class="embedded-video">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/DSbqyWXVDYg" frameborder="0" allowfullscreen></iframe>
-            </div>
-            <!-- Ajout pour télécharger une image/vidéo -->
-            <input type="file" id="musique-upload" class="upload-input" accept="image/*, video/*" onchange="handleFileUpload(this.files, 'musique')">
-            <label for="musique-upload" class="upload-label"><i class="fas fa-cloud-upload-alt"></i> Télécharger une image ou une vidéo</label>
-            <div id="musique-media" class="media-container"></div>
+            <p>Contenu de la catégorie Musique</p>
         </div>
 
         <div class="category" id="astuce">
             <h2><i class="fas fa-lightbulb"></i> Astuce</h2>
             <p>Contenu de la catégorie Astuce</p>
-            <!-- Ajout pour télécharger une image/vidéo -->
-            <input type="file" id="astuce-upload" class="upload-input" accept="image/*, video/*" onchange="handleFileUpload(this.files, 'astuce')">
-            <label for="astuce-upload" class="upload-label"><i class="fas fa-cloud-upload-alt"></i> Télécharger une image ou une vidéo</label>
-            <div id="astuce-media" class="media-container"></div>
         </div>
 
         <!-- Additional content to ensure scrolling -->
@@ -271,109 +227,117 @@
             <h2>Catégorie supplémentaire</h2>
             <p>Contenu supplémentaire pour garantir que la page est longue et que le défilement vertical fonctionne.</p>
         </div>
+
+        <!-- Bouton pour cloner le repo -->
+        <button onclick="cloneRepo()" class="send-btn">Cloner le Repo</button>
+
+        <!-- Section des commentaires -->
+        <div class="comments-section">
+            <h2>Commentaires</h2>
+            <div class="comments-list">
+                <!-- Ici s'afficheront les commentaires -->
+            </div>
+            <form id="comment-form">
+                <textarea id="comment-input" placeholder="Ajouter un commentaire..." required></textarea>
+                <button type="submit">Envoyer</button>
+            </form>
+        </div>
     </div>
 
-    <!-- Chatbot Container -->
+    <!-- Icône du chat -->
     <div class="chat-icon" onclick="toggleChat()">
-        <i class="fas fa-comments"></i>
-    </div>
-    <div class="chat-container">
-        <div class="chat-header">
-            <h3>Chatbot</h3>
-        </div>
-        <div class="chat-messages">
-            <div class="message bot-message">Bonjour ! Comment puis-je vous aider ?</div>
-        </div>
-        <input type="text" id="chat-input" class="chat-input" placeholder="Votre message...">
-        <button class="send-btn" onclick="sendMessage()">Envoyer</button>
+        <i class="fas fa-comments" style="font-size: 50px;"></i>
     </div>
 
-    <!-- Taskbar -->
+    <!-- Conteneur du chat -->
+    <div class="chat-container" id="chat-container">
+        <div class="chat-header">ChatBot</div>
+        <div class="chat-messages" id="chat-messages"></div>
+        <input type="text" id="chat-input" class="chat-input" placeholder="Tapez votre message...">
+        <button onclick="sendMessage()" class="send-btn">Envoyer</button>
+    </div>
+
+    <!-- Barre de tâches latérale -->
     <div class="taskbar">
         <a href="#jeux"><i class="fas fa-gamepad"></i></a>
         <a href="#habille"><i class="fas fa-tshirt"></i></a>
         <a href="#musique"><i class="fas fa-music"></i></a>
         <a href="#astuce"><i class="fas fa-lightbulb"></i></a>
-        <a href="#" onclick="toggleQRCode()"><i class="fas fa-qrcode"></i></a>
     </div>
 
-    <!-- Script JavaScript -->
+    <!-- QR Code -->
+    <div id="qrcode" class="qr-code"></div>
     <script>
-        // Fonction pour gérer le téléchargement et l'affichage des images/vidéos
-        function handleFileUpload(files, category) {
-            var mediaContainer = document.getElementById(category + "-media");
-            for (var i = 0; i < files.length; i++) {
-                var file = files[i];
-                var reader = new FileReader();
+        // Initialisation du QR Code
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+            text: "https://example.com",
+            width: 128,
+            height: 128
+        });
 
-                reader.onload = function(e) {
-                    var mediaElement;
-                    if (file.type.startsWith("image/")) {
-                        mediaElement = document.createElement("img");
-                        mediaElement.src = e.target.result;
-                        mediaElement.alt = file.name;
-                    } else if (file.type.startsWith("video/")) {
-                        mediaElement = document.createElement("video");
-                        mediaElement.src = e.target.result;
-                        mediaElement.type = file.type;
-                        mediaElement.controls = true;
-                    }
-
-                    mediaElement.classList.add("uploaded-media");
-                    mediaContainer.appendChild(mediaElement);
-                };
-
-                reader.readAsDataURL(file);
-            }
-        }
-
-        // Function to toggle the chat container visibility
+        // Fonction pour basculer le chat
         function toggleChat() {
-            var chatContainer = document.querySelector(".chat-container");
-            chatContainer.style.display = chatContainer.style.display === "none" ? "block" : "none";
-        }
-
-        // Function to send user message and receive bot response
-        function sendMessage() {
-            var inputElement = document.getElementById("chat-input");
-            var message = inputElement.value.trim();
-
-            if (message !== "") {
-                addMessage(message, true);
-                processMessage(message);
-                inputElement.value = "";
-            }
-        }
-
-        // Function to process the message and generate bot response
-        function processMessage(message) {
-            // Simple chatbot responses based on keywords
-            if (message.toLowerCase().includes("copilot")) {
-                var response = "GitHub Copilot est une extension d'IA développée par GitHub pour aider à la programmation.";
-                addMessage(response, false);
-            } else if (message.toLowerCase().includes("extension")) {
-                var response = "Les extensions de Visual Studio Code permettent d'ajouter des fonctionnalités supplémentaires à l'éditeur.";
-                addMessage(response, false);
+            var chatContainer = document.getElementById("chat-container");
+            if (chatContainer.style.display === "none" || chatContainer.style.display === "") {
+                chatContainer.style.display = "block";
             } else {
-                var response = "Désolé, je ne comprends pas. Pouvez-vous reformuler votre question ?";
-                addMessage(response, false);
+                chatContainer.style.display = "none";
             }
         }
 
-        // Function to add message to chat container
-        function addMessage(message, isUser) {
-            var chatMessages = document.querySelector(".chat-messages");
-            var messageClass = isUser ? "user-message" : "bot-message";
-            var messageElement = document.createElement("div");
-            messageElement.classList.add("message", messageClass);
-            messageElement.textContent = message;
-            chatMessages.appendChild(messageElement);
-        }
-    </script>
-</body>
-</html>
+        // Fonction pour envoyer un message
+        function sendMessage() {
+            var input = document.getElementById("chat-input");
+            var messagesContainer = document.getElementById("chat-messages");
 
-        qrCodeContainer.appendChild(qrCode._el.firstChild);
+            if (input.value.trim() !== "") {
+                var userMessage = document.createElement("div");
+                userMessage.className = "message user-message";
+                userMessage.textContent = input.value;
+                messagesContainer.appendChild(userMessage);
+
+                // Simuler une réponse du bot
+                setTimeout(function() {
+                    var botMessage = document.createElement("div");
+                    botMessage.className = "message bot-message";
+                    botMessage.textContent = "Merci pour votre message. Nous reviendrons vers vous sous peu.";
+                    messagesContainer.appendChild(botMessage);
+
+                    // Scroll to the bottom of the chat
+                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                }, 1000);
+
+                input.value = "";
+            }
+        }
+
+        // Ajouter un événement pour le formulaire de commentaires
+        document.getElementById("comment-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            var commentInput = document.getElementById("comment-input");
+            var commentsList = document.querySelector(".comments-list");
+
+            if (commentInput.value.trim() !== "") {
+                var comment = document.createElement("div");
+                comment.className = "message user-message";
+                comment.textContent = commentInput.value;
+                commentsList.appendChild(comment);
+                commentInput.value = "";
+                commentsList.scrollTop = commentsList.scrollHeight;
+            }
+        });
+
+        // Fonction pour cloner le repo
+        function cloneRepo() {
+            var repoUrl = "https://github.com/username/repo.git";
+            var tempInput = document.createElement("textarea");
+            tempInput.value = repoUrl;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+            alert("URL du repo copié dans le presse-papier !");
+        }
     </script>
 </body>
 </html>
