@@ -5,10 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZerixIsland</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script> <!-- Bibliothèque QR Code -->
-
     <style>
-        /* Styles CSS */
+        /* Vos styles CSS existants ici */
         body {
             font-family: Arial, sans-serif;
             background-color: #f0f0f0;
@@ -189,155 +187,22 @@
 
     <!-- Contenu principal de la page -->
     <div class="main-content">
+        <!-- Section Jeux -->
         <div class="category" id="jeux">
             <h2><i class="fas fa-gamepad"></i> Jeux</h2>
-            <p>Contenu de la catégorie Jeux</p>
-            <!-- Ajouter une image et un lien pour télécharger ou exécuter le jeu Pygame -->
-            <div style="text-align: center;">
-                <img src="path_to_your_image/jeu.png" alt="Aventures Interstellaires" style="width: 300px; height: 200px;">
-                <p><a href="path_to_your_download/jeu_pygame.zip" download>Télécharger le jeu</a></p>
-            </div>
+            <!-- Intégration du jeu via Repl.it -->
+            <iframe src="https://repl.it/@YourUsername/YourProjectName?embed=true"></iframe>
         </div>
 
-        <div class="category" id="habille">
-            <h2><i class="fas fa-tshirt"></i> Habille</h2>
-            <p>Contenu de la catégorie Habille</p>
-        </div>
+        <!-- Autres sections et contenu de la page -->
 
-        <div class="category" id="musique">
-            <h2><i class="fas fa-music"></i> Musique</h2>
-            <p>Contenu de la catégorie Musique</p>
-        </div>
-
-        <div class="category" id="astuce">
-            <h2><i class="fas fa-lightbulb"></i> Astuce</h2>
-            <p>Contenu de la catégorie Astuce</p>
-        </div>
-
-        <!-- Additional content to ensure scrolling -->
-        <div class="category">
-            <h2>Catégorie supplémentaire</h2>
-            <p>Contenu supplémentaire pour garantir que la page est longue et que le défilement vertical fonctionne.</p>
-        </div>
-        <div class="category">
-            <h2>Catégorie supplémentaire</h2>
-            <p>Contenu supplémentaire pour garantir que la page est longue et que le défilement vertical fonctionne.</p>
-        </div>
-        <div class="category">
-            <h2>Catégorie supplémentaire</h2>
-            <p>Contenu supplémentaire pour garantir que la page est longue et que le défilement vertical fonctionne.</p>
-        </div>
-
-        <!-- Bouton pour cloner le repo -->
-        <button onclick="cloneRepo()" class="send-btn">Cloner le Repo</button>
-
-        <!-- Section des commentaires -->
-        <div class="comments-section">
-            <h2>Commentaires</h2>
-            <div class="comments-list">
-                <!-- Ici s'afficheront les commentaires -->
-            </div>
-            <form id="comment-form">
-                <textarea id="comment-input" placeholder="Ajouter un commentaire..." required></textarea>
-                <button type="submit">Envoyer</button>
-            </form>
-        </div>
     </div>
 
-    <!-- Icône du chat -->
-    <div class="chat-icon" onclick="toggleChat()">
-        <i class="fas fa-comments" style="font-size: 50px;"></i>
-    </div>
+    <!-- Barre de tâches, icône de chat, etc. -->
+    <!-- Vos éléments existants ici -->
 
-    <!-- Conteneur du chat -->
-    <div class="chat-container" id="chat-container">
-        <div class="chat-header">ChatBot</div>
-        <div class="chat-messages" id="chat-messages"></div>
-        <input type="text" id="chat-input" class="chat-input" placeholder="Tapez votre message...">
-        <button onclick="sendMessage()" class="send-btn">Envoyer</button>
-    </div>
+    <!-- Script JavaScript et autres fonctionnalités -->
+    <!-- Vos scripts existants ici -->
 
-    <!-- Barre de tâches latérale -->
-    <div class="taskbar">
-        <a href="#jeux"><i class="fas fa-gamepad"></i></a>
-        <a href="#habille"><i class="fas fa-tshirt"></i></a>
-        <a href="#musique"><i class="fas fa-music"></i></a>
-        <a href="#astuce"><i class="fas fa-lightbulb"></i></a>
-    </div>
-
-    <!-- QR Code -->
-    <div id="qrcode" class="qr-code"></div>
-    <script>
-        // Initialisation du QR Code
-        var qrcode = new QRCode(document.getElementById("qrcode"), {
-            text: "https://example.com",
-            width: 128,
-            height: 128
-        });
-
-        // Fonction pour basculer le chat
-        function toggleChat() {
-            var chatContainer = document.getElementById("chat-container");
-            if (chatContainer.style.display === "none" || chatContainer.style.display === "") {
-                chatContainer.style.display = "block";
-            } else {
-                chatContainer.style.display = "none";
-            }
-        }
-
-        // Fonction pour envoyer un message
-        function sendMessage() {
-            var input = document.getElementById("chat-input");
-            var messagesContainer = document.getElementById("chat-messages");
-
-            if (input.value.trim() !== "") {
-                var userMessage = document.createElement("div");
-                userMessage.className = "message user-message";
-                userMessage.textContent = input.value;
-                messagesContainer.appendChild(userMessage);
-
-                // Simuler une réponse du bot
-                setTimeout(function() {
-                    var botMessage = document.createElement("div");
-                    botMessage.className = "message bot-message";
-                    botMessage.textContent = "Merci pour votre message. Nous reviendrons vers vous sous peu.";
-                    messagesContainer.appendChild(botMessage);
-
-                    // Scroll to the bottom of the chat
-                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
-                }, 1000);
-
-                input.value = "";
-            }
-        }
-
-        // Ajouter un événement pour le formulaire de commentaires
-        document.getElementById("comment-form").addEventListener("submit", function(event) {
-            event.preventDefault();
-            var commentInput = document.getElementById("comment-input");
-            var commentsList = document.querySelector(".comments-list");
-
-            if (commentInput.value.trim() !== "") {
-                var comment = document.createElement("div");
-                comment.className = "message user-message";
-                comment.textContent = commentInput.value;
-                commentsList.appendChild(comment);
-                commentInput.value = "";
-                commentsList.scrollTop = commentsList.scrollHeight;
-            }
-        });
-
-        // Fonction pour cloner le repo
-        function cloneRepo() {
-            var repoUrl = "https://github.com/username/repo.git";
-            var tempInput = document.createElement("textarea");
-            tempInput.value = repoUrl;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand("copy");
-            document.body.removeChild(tempInput);
-            alert("URL du repo copié dans le presse-papier !");
-        }
-    </script>
 </body>
 </html>
